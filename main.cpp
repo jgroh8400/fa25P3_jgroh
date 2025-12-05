@@ -124,17 +124,18 @@ bool dfs(int r, int c,
          vector<vector<int>>& parent_c,
          int exit_r, int exit_c) {
     // Your code here
-    if (maze[r][c] == 'E') {
+    if (maze[r][c] == 'E' && r == exit_r && c == exit_c) {
         return true;
     }
 
-    // if (maze[r][c] == 1) {
-    //
-    // }
-
-    if (visited[r][c] == true) {
+    if (maze[r][c] == 1) {
         return false;
     }
+
+    if (!maze[r][c]) {
+        return false;
+    }
+
 
     visited[r][c] = true;
 
@@ -143,8 +144,8 @@ bool dfs(int r, int c,
         int c2 = c + dc[i];
         parent_r[r2][c2] = r;
         parent_c[r2][c2] = c;
-        if (maze[r2][c2] == 0) {
-            dfs(r2, c2, maze, visited, parent_r, parent_c, r, c);
+        if (maze[r2][c2] == 0 && visited[r2][c2] == false) {
+            dfs(r2, c2, maze, visited, parent_r, parent_c, exit_r, exit_c);
         }
     }
 
